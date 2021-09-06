@@ -7,14 +7,20 @@ $twig = new \Twig\Environment($loader);
 
 $stats = [];
 
-if (!is_int($count = ($argv[1] ?? 100000))) {
+if (isset($argv[1]) && is_numeric($argv[1])) {
+    $count = (int)$argv[1];
+} else {
     $count = 100000;
 }
 
 echo "Twig Benchmark\nUsage: php ".basename(__FILE__)." [number of iterations]\n\nRunning {$count} iterations.\n";
 
+$methods = ['embed', 'include', 'macro'];
 
-foreach (['embed', 'include', 'macro'] as $method) {
+// Randomise the order of tests to rule out the order's effect on the outcome
+shuffle($methods);
+
+foreach ($methods as $method) {
 
     // Each method will have its own cache to avoid interference
     $twig->setCache(new Twig\Cache\FilesystemCache(__DIR__.'/cache/'.$method));
@@ -38,10 +44,10 @@ foreach (['embed', 'include', 'macro'] as $method) {
 }
 
 uasort($stats, function($a, $b){
-    if ($a == $b) {
+    if ($a['elapsed'] === $b['elapsed']) {
         return 0;
     }
-    return ($a < $b) ? -1 : 1;
+    return ($a['elapsed'] > $b['elapsed']) ? -1 : 1;
 });
 
 foreach ($stats as $method => $result) {
