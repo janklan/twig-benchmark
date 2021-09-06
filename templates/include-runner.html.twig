@@ -1,0 +1,13 @@
+{% import 'shared-macro.html.twig' as shared %}
+
+{% for i in 0..count %}
+    {% set body %}
+        <p>Body {{ i }}</p>
+        {{ shared.macro('Value' ~ i) }}
+    {% endset %}
+
+    {% include 'include.html.twig' with {
+        header: 'Header ' ~ i,
+        body: body|raw
+    } %}
+{% endfor %}

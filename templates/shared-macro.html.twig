@@ -1,0 +1,11 @@
+{%- macro macro(arrayContent) -%}
+    <ul>
+        {% for item in arrayContent %}
+            <li style="background:black;color:white">
+                <a href="#some-link-somewhere-else">
+                    {{ content }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+{%- endmacro -%}

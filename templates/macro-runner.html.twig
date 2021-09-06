@@ -1,0 +1,11 @@
+{% import 'macro.html.twig' as benchmark %}
+{% import 'shared-macro.html.twig' as shared %}
+
+{% for i in 0..count %}
+    {% set body %}
+        <p>Body {{ i }}</p>
+        {{ shared.macro('Value' ~ i) }}
+    {% endset %}
+
+    {{  benchmark.macro('Header ' ~ i, body|raw) }}
+{% endfor %}

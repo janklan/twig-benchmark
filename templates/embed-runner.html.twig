@@ -1,0 +1,12 @@
+{% for i in 0..count %}
+    {% embed 'embed.html.twig' %}
+        {% block header%}
+            Header {{ i }}
+        {% endblock %}
+        {% block body %}
+            {% import 'shared-macro.html.twig' as shared %}
+            <p>Body {{ i }}</p>
+            {{ shared.macro('Value' ~ i) }}
+        {% endblock %}
+    {% endembed %}
+{% endfor %}

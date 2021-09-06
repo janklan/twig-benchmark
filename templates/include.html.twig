@@ -1,0 +1,11 @@
+<div>
+    <h1>
+        {{- header ?? 'Default Header' -}}
+    </h1>
+
+    <div>
+        {% block body %}
+            {{- body ?? 'Default Body' -}}
+        {% endblock %}
+    </div>
+</div>
