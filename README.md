@@ -21,7 +21,7 @@ You'll need to re-use Twig code snippets. But which one? It gets interesting the
 
 ## My results
 
-Below is my result on a 2019 Macbook Pro with i7:
+Below is my result on a 2019 Macbook Pro with i7 (September 2021)
 
 ```
 Twig Benchmark
@@ -32,6 +32,33 @@ embed  4253ms
 include    3428ms
 macro  2695ms
 ```
+
+### April 2022 update
+
+Interestingly enough, a result from a 2021 M1 Max Macbook Pro with 64GB RAM and PHP 8.1 shows worse performance
+
+```
+Twig Benchmark
+Usage: php index.php [number of iterations]
+
+Running 100000 iterations.
+embed	5951ms
+include	4822ms
+macro	3659ms
+```
+
+Updating composer dependencies to today's latest versions shows something significantly better, so I'd like to blame the
+poor performance on the extra work done while handling deprecations in the old packages:
+
+Twig Benchmark
+Usage: php index.php [number of iterations]
+
+Running 100000 iterations.
+embed	1711ms
+include	1394ms
+macro	1185ms
+
+So, two additional conclusions: keep your code up-to-date as it can slow down your app even on a rockstar hardware, and yes, the M1 is faster :P
 
 ## My conclusion
 

@@ -20,6 +20,15 @@ $methods = ['embed', 'include', 'macro'];
 // Randomise the order of tests to rule out the order's effect on the outcome
 shuffle($methods);
 
+// Run all three methods on top of a single cache directory to allow studying the cache better
+$twig->setCache(new Twig\Cache\FilesystemCache(__DIR__.'/cache/common-cache-for-all-methods'));
+foreach ($methods as $method) {
+    $twig->render($method.'-runner.html.twig', [
+        'count' => 1
+    ]);
+}
+
+// The actual testing follows:
 foreach ($methods as $method) {
 
     // Each method will have its own cache to avoid interference
