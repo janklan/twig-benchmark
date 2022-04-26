@@ -1,13 +1,16 @@
 {% import 'shared-macro.html.twig' as shared %}
 
 {% for i in 0..count %}
-    {% set body %}
-        <p>Body {{ i }}</p>
-        {{ shared.macro('Value' ~ i) }}
-    {% endset %}
+    {# Simulate doing the same action 30x per iteration (think: 30 columns per row in a table, each row rendered using this method) #}
+    {% for j in 0..30 %}
+        {% set body %}
+            <p>Body {{ i }}</p>
+            {{ shared.macro('Value' ~ i) }}
+        {% endset %}
 
-    {% include 'include.html.twig' with {
-        header: 'Header ' ~ i,
-        body: body|raw
-    } %}
+        {% include 'include.html.twig' with {
+            header: 'Header ' ~ i,
+            body: body|raw
+        } %}
+    {% endfor %}
 {% endfor %}
